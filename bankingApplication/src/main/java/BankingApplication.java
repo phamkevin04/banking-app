@@ -1,13 +1,14 @@
-import java.util.Scanner;s
+import java.util.Scanner;
 
 public class BankingApplication {
 
     public static void main(String[] args) {
-
+        BankAccount obj = new BankAccount("Timothy Kim", "1K3Z4S8PZ");
+        obj.showMenu();
     }
 
-    class BankAccount {
-        int balance;
+    static class BankAccount {
+        int balance; // variables
         int previousTransaction;
         String customerName;
         String customerID;
@@ -24,7 +25,7 @@ public class BankingApplication {
             }
         }
 
-        void withdraw(int amount) {
+        void withdraw(int amount) { // method to withdraw
             if (amount != 0) {
                 balance  = balance - amount; // to show that we TOOK out money
                 previousTransaction = -amount;
@@ -47,20 +48,24 @@ public class BankingApplication {
             char option = '\0'; //initialize with 0 basically
             Scanner scanner = new Scanner(System.in);
 
+            System.out.println("---------- Banking Application ----------");
             System.out.println("Hello " + customerName);
             System.out.println("Account ID: " + customerID + "\n");
 
-            //options
-            System.out.println("A - Deposit Balance");
-            System.out.println("B - Withdraw Balance");
-            System.out.println("C - Previous Transaction");
-            System.out.println("D - Current Balance");
-            System.out.println("Z - Escape / Exit");
-
             do
             {
-                System.out.print("\n Enter your option here:");
+                System.out.println("---------- Options ---------");
+
+                //options
+                System.out.println("A - Deposit Balance");
+                System.out.println("B - Withdraw Balance");
+                System.out.println("C - Previous Transaction");
+                System.out.println("D - Current Balance");
+                System.out.println("Z - Escape / Exit");
+
+                System.out.print("\nEnter your option here:");
                 option = scanner.next().charAt(0);
+
                 System.out.println("\n");
 
                 switch(option) {
@@ -70,8 +75,37 @@ public class BankingApplication {
                         deposit(amount);
                         System.out.println("\n");
                         break;
+
+                    case 'B': // Withdraw Amount
+                        System.out.print("Enter amount to withdraw: ");
+                        int amountWithdraw = scanner.nextInt();
+                        withdraw(amountWithdraw);
+                        System.out.println("\n");
+                        break;
+
+                    case 'C': // Previous Transaction
+                        System.out.print("Previous transaction: ");
+                        getPreviousTransaction();
+                        System.out.println("\n");
+                        break;
+
+                    case 'D': // Current Balance
+                        System.out.println("Current balance: " + balance);
+                        System.out.println("\n");
+                        break;
+
+                    case 'Z':
+                        System.out.println("Banking use ... done");
+                        break;
+
+                    default:
+                        System.out.println("Option is not valid, please try again: ");
+                        break;
+
                 }
             }
+            while(option != 'Z');
+            System.out.println("Banking usage complete!");
         }
     }
 }
