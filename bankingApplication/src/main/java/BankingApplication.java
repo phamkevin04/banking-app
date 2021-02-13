@@ -1,0 +1,77 @@
+import java.util.Scanner;s
+
+public class BankingApplication {
+
+    public static void main(String[] args) {
+
+    }
+
+    class BankAccount {
+        int balance;
+        int previousTransaction;
+        String customerName;
+        String customerID;
+
+        BankAccount(String cName, String cId) { //constructor
+            customerName = cName;
+            customerID = cId;
+        }
+
+        void deposit(int amount) { // method to deposit
+            if (amount != 0) {
+                balance = balance + amount;
+                previousTransaction = amount;
+            }
+        }
+
+        void withdraw(int amount) {
+            if (amount != 0) {
+                balance  = balance - amount; // to show that we TOOK out money
+                previousTransaction = -amount;
+            }
+        }
+
+        void getPreviousTransaction() {
+            if(previousTransaction < 0) { // means previous transaction was a withdraw
+                System.out.println("Last transaction [withdrawn]: " + Math.abs(previousTransaction));
+            }
+            else if(previousTransaction > 0) { // means previous transaction was a deposit
+                System.out.println("Last transaction [deposited]: " + Math.abs(previousTransaction));
+            }
+            else {
+                System.out.println("No transaction previously happened");
+            }
+        }
+
+        void showMenu() {
+            char option = '\0'; //initialize with 0 basically
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Hello " + customerName);
+            System.out.println("Account ID: " + customerID + "\n");
+
+            //options
+            System.out.println("A - Deposit Balance");
+            System.out.println("B - Withdraw Balance");
+            System.out.println("C - Previous Transaction");
+            System.out.println("D - Current Balance");
+            System.out.println("Z - Escape / Exit");
+
+            do
+            {
+                System.out.print("\n Enter your option here:");
+                option = scanner.next().charAt(0);
+                System.out.println("\n");
+
+                switch(option) {
+                    case 'A': // Deposit Balance
+                        System.out.print("Enter amount to deposit: ");
+                        int amount = scanner.nextInt();
+                        deposit(amount);
+                        System.out.println("\n");
+                        break;
+                }
+            }
+        }
+    }
+}
